@@ -1,0 +1,40 @@
+Source: node-watchpack
+Maintainer: Debian Javascript Maintainers <pkg-javascript-devel@lists.alioth.debian.org>
+Uploaders: Pirate Praveen <praveen@debian.org>
+Section: javascript
+Testsuite: autopkgtest-pkg-nodejs
+Priority: optional
+Build-Depends: debhelper-compat (= 13)
+ , dh-sequence-nodejs
+ , mocha <!nocheck>
+ , node-chokidar (>= 2.0.2~) <!nocheck>
+ , node-graceful-fs <!nocheck>
+ , node-neo-async <!nocheck>
+ , node-rimraf <!nocheck>
+ , node-should <!nocheck>
+ , node-write-file-atomic <!nocheck>
+ , nodejs
+Standards-Version: 4.6.0
+Vcs-Browser: https://salsa.debian.org/js-team/node-watchpack
+Vcs-Git: https://salsa.debian.org/js-team/node-watchpack.git
+Homepage: https://github.com/webpack/watchpack
+Rules-Requires-Root: no
+
+Package: node-watchpack
+Architecture: all
+Depends: ${misc:Depends}
+ , node-chokidar (>= 2.0.2~)
+ , node-graceful-fs
+ , node-neo-async
+Provides: ${nodejs:Provides}
+Description: Wrapper library for directory and file watching
+ The watchpack high level API doesn't map directly to watchers. Instead a
+ three level architecture ensures that for each directory only a single
+ watcher exists.
+ .
+ This library is a dependency for webpack. Webpack takes code targeted at
+ node.js and makes it run in the browser. Node.js comes with API of its own
+ that is not available in the browsers. Webpack exposes this code
+ to programs that are unaware they are running in a browser.
+ .
+ Node.js is an event-based server-side JavaScript engine.

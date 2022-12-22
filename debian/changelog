@@ -1,0 +1,97 @@
+node-watchpack (2.2.0-1) unstable; urgency=medium
+
+  * Team upload
+
+  [ Jenkins ]
+  * Remove constraints unnecessary since stretch.
+
+  [ Yadd ]
+  * Fix GitHub tags regex
+  * Update standards version to 4.6.0, no changes needed.
+  * Fix filenamemangle
+  * New upstream version 2.2.0
+
+ -- Yadd <yadd@debian.org>  Thu, 04 Nov 2021 16:05:25 +0100
+
+node-watchpack (2.1.0-1) unstable; urgency=medium
+
+  * Team upload
+  * Add ctype=nodejs to component(s)
+  * New upstream version 2.1.0
+  * Install glob-to-regexp in main nodejs dir
+
+ -- Xavier Guimard <yadd@debian.org>  Wed, 09 Dec 2020 11:52:08 +0100
+
+node-watchpack (2.0.1-1) unstable; urgency=medium
+
+  * Team upload
+  * Declare compliance with policy 4.5.1
+  * Modernize debian/watch
+  * New upstream version 2.0.1
+
+ -- Xavier Guimard <yadd@debian.org>  Tue, 01 Dec 2020 13:40:19 +0100
+
+node-watchpack (2.0.0-1) unstable; urgency=medium
+
+  * Team upload
+
+  [ Debian Janitor ]
+  * Bump debhelper from old 11 to 12.
+  * Set debhelper-compat version in Build-Depends.
+  * Set upstream metadata fields: Bug-Submit.
+  * Remove obsolete fields Contact, Name from debian/upstream/metadata
+    (already present in machine-readable debian/copyright).
+  * Update standards version to 4.5.0, no changes needed.
+
+  [ Xavier Guimard ]
+  * Bump debhelper compatibility level to 13
+  * Add "Rules-Requires-Root: no"
+  * Add debian/gbp.conf
+  * Use dh-sequence-nodejs
+  * Embed glob-to-regexp
+  * New upstream version 2.0.0
+  * Increase mocha timeout
+  * Update copyright
+
+ -- Xavier Guimard <yadd@debian.org>  Fri, 30 Oct 2020 14:26:35 +0100
+
+node-watchpack (1.6.0-2) unstable; urgency=medium
+
+  * Reupload to unstable
+  * Switch to pkg-js-tools auto install
+
+ -- Pirate Praveen <praveen@debian.org>  Sun, 04 Aug 2019 12:18:45 +0000
+
+node-watchpack (1.6.0-1) experimental; urgency=medium
+
+  [ Pirate Praveen ]
+  * New upstream version 1.6.0
+  * Bump Standards-Version to 4.4.0 (no changes needed)
+  * Bump debhelper compatibility level to 11
+  * Install to /usr/share/nodejs
+
+  [ Xavier Guimard ]
+  * Add upstream/metadata
+
+ -- Pirate Praveen <praveen@debian.org>  Sun, 28 Jul 2019 23:35:03 +0200
+
+node-watchpack (1.3.1-3) unstable; urgency=medium
+
+  * Team upload
+  * Improve cli testing
+  * Move to salsa
+  * Bump compat and policy (no changes)
+
+ -- Bastien Roucariès <rouca@debian.org>  Wed, 09 May 2018 18:19:59 +0200
+
+node-watchpack (1.3.1-2) unstable; urgency=medium
+
+  * Reupload to unstable
+
+ -- Pirate Praveen <praveen@debian.org>  Sat, 19 Aug 2017 12:55:13 +0530
+
+node-watchpack (1.3.1-1) experimental; urgency=low
+
+  * Initial release (Closes: #806150)
+
+ -- Pirate Praveen <praveen@debian.org>  Wed, 24 May 2017 14:40:29 +0530

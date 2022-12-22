@@ -1,0 +1,10 @@
+Description: fix testing
+Author: Pirate Praveen <praveen@debian.org>
+Forwarded: not-needed
+
+Remove full stack that could change between node version
+--- a/test/mocha.opts
++++ b/test/mocha.opts
+@@ -1,2 +1 @@
+---full-trace
+ --reporter spec

@@ -1,0 +1,12 @@
+version=4
+opts=\
+dversionmangle=auto,\
+filenamemangle=s/.*?(\d[\d\.-]*@ARCHIVE_EXT@)/node-watchpack-$1/ \
+ https://github.com/webpack/watchpack/tags .*/archive/.*/v?([\d\.]+).tar.gz
+
+opts=\
+ctype=nodejs,\
+component=glob-to-regexp,\
+dversionmangle=auto,\
+filenamemangle=s/.*?(\d[\d\.-]*@ARCHIVE_EXT@)/node-glob-to-regexp-$1/ \
+ https://github.com/fitzgen/glob-to-regexp/tags .*/archive/.*/v?([\d\.]+).tar.gz ignore
