@@ -1,3 +1,26 @@
+node-watchpack (2.4.0+~cs2.8.1-1) unstable; urgency=medium
+
+  * Team upload
+  * Declare compliance with policy 4.6.1
+  * Embed typescript declarations
+  * New upstream version 2.4.0+~cs2.8.1
+
+ -- Yadd <yadd@debian.org>  Mon, 22 Aug 2022 10:45:49 +0200
+
+node-watchpack (2.3.1-2) unstable; urgency=medium
+
+  * Team upload
+  * Back to unstable
+
+ -- Yadd <yadd@debian.org>  Wed, 06 Apr 2022 08:37:56 +0200
+
+node-watchpack (2.3.1-1) experimental; urgency=medium
+
+  * Team upload
+  * New upstream version 2.3.1
+
+ -- Israel Galadima <izzygaladima@gmail.com>  Fri, 01 Apr 2022 14:43:09 +0000
+
 node-watchpack (2.2.0-1) unstable; urgency=medium
 
   * Team upload
