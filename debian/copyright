@@ -3,18 +3,23 @@ Upstream-Name: watchpack
 Upstream-Contact: https://github.com/webpack/watchpack/issues
 Source: https://github.com/webpack/watchpack
  https://github.com/fitzgen/glob-to-regexp/tags
+ https://registry.npmjs.org/@types/watchpack
 
 Files: *
 Copyright: JS Foundation and other contributors
+License: Expat
+
+Files: debian/*
+Copyright: 2017 Pirate Praveen <praveen@debian.org>
+ 2020 Yadd <yadd@debian.org>
 License: Expat
 
 Files: glob-to-regexp/*
 Copyright: 2013 Nick Fitzgerald
 License: BSD-3-Clause
 
-Files: debian/*
-Copyright: 2017 Pirate Praveen <praveen@debian.org>
- 2020 Yadd <yadd@debian.org>
+Files: types-*/*
+Copyright: Microsoft Corporation
 License: Expat
 
 License: BSD-3-Clause

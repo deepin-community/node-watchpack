@@ -118,6 +118,32 @@ describe("Watchpack", function() {
 		});
 	});
 
+	it("should not watch a single ignored file (function)", function(done) {
+		var w = new Watchpack({
+			aggregateTimeout: 300,
+			ignored: entry => entry.includes("a")
+		});
+		var changeEvents = 0;
+		var aggregatedEvents = 0;
+		w.on("change", () => {
+			changeEvents++;
+		});
+		w.on("aggregated", () => {
+			aggregatedEvents++;
+		});
+		w.watch([path.join(fixtures, "a")], []);
+		testHelper.tick(() => {
+			testHelper.file("a");
+			testHelper.tick(1000, () => {
+				changeEvents.should.be.eql(0);
+				aggregatedEvents.should.be.eql(0);
+				testHelper.getNumberOfWatchers().should.be.eql(0);
+				w.close();
+				done();
+			});
+		});
+	});
+
 	it("should watch multiple files", function(done) {
 		var w = new Watchpack({
 			aggregateTimeout: 1000
@@ -518,6 +544,104 @@ describe("Watchpack", function() {
 		testHelper.dir(path.join("dir", "sub"));
 		testHelper.tick(function() {
 			w.watch([], [path.join(fixtures, "dir")]);
+			testHelper.tick(function() {
+				testHelper.file(path.join("dir", "sub", "a"));
+			});
+		});
+	});
+
+	it("should watch file in a sub directory (passed in maps)", function(done) {
+		var w = new Watchpack({
+			aggregateTimeout: 1000
+		});
+		var changeEvents = [];
+		w.on("change", function(file) {
+			if (changeEvents[changeEvents.length - 1] === file) return;
+			changeEvents.push(file);
+		});
+		w.on("aggregated", function(changes) {
+			Array.from(changes).should.be.eql([path.join(fixtures, "dir")]);
+			changeEvents.should.be.eql([path.join(fixtures, "dir", "sub", "a")]);
+			const files = new Map();
+			const directories = new Map();
+			w.collectTimeInfoEntries(files, directories);
+			const dir = directories.get(path.join(fixtures, "dir"));
+			const dirAsFile = files.get(path.join(fixtures, "dir"));
+			const sub = directories.get(path.join(fixtures, "dir", "sub"));
+			const subAsFile = files.get(path.join(fixtures, "dir", "sub"));
+			const a = files.get(path.join(fixtures, "dir", "sub", "a"));
+			const file = files.get(path.join(fixtures, "file"));
+			dir.should.be.type("object");
+			dir.should.have.property("safeTime");
+			dirAsFile.should.be.type("object");
+			dirAsFile.should.not.have.property("safeTime");
+			sub.should.be.type("object");
+			sub.should.have.property("safeTime");
+			subAsFile.should.be.type("object");
+			subAsFile.should.not.have.property("safeTime");
+			a.should.be.type("object");
+			a.should.have.property("safeTime");
+			a.should.have.property("timestamp");
+			(file === null).should.be.eql(true);
+			sub.safeTime.should.be.aboveOrEqual(a.safeTime);
+			dir.safeTime.should.be.aboveOrEqual(sub.safeTime);
+			w.close();
+			done();
+		});
+		testHelper.dir("dir");
+		testHelper.dir(path.join("dir", "sub"));
+		testHelper.dir(path.join("dir", "sub2"));
+		testHelper.tick(function() {
+			w.watch([path.join(fixtures, "file")], [path.join(fixtures, "dir")]);
+			testHelper.tick(function() {
+				testHelper.file(path.join("dir", "sub", "a"));
+			});
+		});
+	});
+
+	it("should watch directory as file and directory", function(done) {
+		var w = new Watchpack({
+			aggregateTimeout: 1000
+		});
+		w.on("aggregated", function(changes) {
+			const files = new Map();
+			const directories = new Map();
+			w.collectTimeInfoEntries(files, directories);
+			// fixtures should exist
+			const fixturesAsFile = files.get(path.join(fixtures));
+			fixturesAsFile.should.be.type("object");
+			// dir should exist
+			const dirAsFile = files.get(path.join(fixtures, "dir"));
+			dirAsFile.should.be.type("object");
+			dirAsFile.should.not.have.property("safeTime");
+			// a should have timestamp
+			const a = files.get(path.join(fixtures, "dir", "sub", "a"));
+			a.should.be.type("object");
+			a.should.have.property("safeTime");
+			a.should.have.property("timestamp");
+			// sub should have timestamp
+			const sub = directories.get(path.join(fixtures, "dir", "sub"));
+			sub.should.be.type("object");
+			sub.should.have.property("safeTime");
+			// sub should exist as file
+			const subAsFile = files.get(path.join(fixtures, "dir", "sub"));
+			subAsFile.should.be.type("object");
+			subAsFile.should.not.have.property("safeTime");
+			w.close();
+			done();
+		});
+		testHelper.dir("dir");
+		testHelper.dir(path.join("dir", "sub"));
+		testHelper.dir(path.join("dir", "sub2"));
+		testHelper.tick(function() {
+			w.watch(
+				[
+					path.join(fixtures, "dir", "sub", "a"),
+					path.join(fixtures, "dir", "sub"),
+					path.join(fixtures)
+				],
+				[path.join(fixtures, "dir", "sub")]
+			);
 			testHelper.tick(function() {
 				testHelper.file(path.join("dir", "sub", "a"));
 			});
